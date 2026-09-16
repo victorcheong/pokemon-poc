@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      args:
+        # Must match the uid that owns ~/.claude on the host (check with `id -u`).
+        UID: ${UID:-1000}
+    container_name: pokemon-backend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - POKEMON_CSV_PATH=/app/data/pokemon.csv
+    volumes:
+      # Claude Code login (OAuth tokens + config) so the opposing trainer can use your
+      # Claude subscription instead of an API key. Override CLAUDE_DIR / CLAUDE_JSON if
+      # your login lives elsewhere; remove both lines to run without it.
+      - ${CLAUDE_DIR:-~/.claude}:/home/appuser/.claude
+      - ${CLAUDE_JSON:-~/.claude.json}:/home/appuser/.claude.json
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: pokemon-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:80"
