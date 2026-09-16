@@ -18,3 +18,8 @@ frontend/dist/
 .DS_Store
 .vscode/
 .idea/
+
+# Demo recordings (large binaries; share separately)
+demo/
+.venv-demo/
+video/
