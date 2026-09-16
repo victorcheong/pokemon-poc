@@ -41,6 +41,12 @@ Battle rules: level 50, real damage formula (STAB, type effectiveness from the d
 forced replacement on faint. Movesets are generated from each Pokémon's typing and stat
 profile because the dataset has no move data.
 
+## Demo video
+
+A recorded walkthrough of a full battle, with captions naming each API call as it happens:
+[`demo/pokemon-battle-demo.mp4`](demo/pokemon-battle-demo.mp4) (2½ min). Re-record it any time
+with `scripts/record_demo.py` (instructions in the file header).
+
 ## Quick start (Docker)
 
 ```bash

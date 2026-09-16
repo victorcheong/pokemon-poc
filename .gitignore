@@ -19,7 +19,5 @@ frontend/dist/
 .vscode/
 .idea/
 
-# Demo recordings (large binaries; share separately)
-demo/
 .venv-demo/
 video/
